@@ -6,7 +6,7 @@ The primary objectives for this project are to deploy a SIEM/XDR solution in the
 In addition to the many tools listed above, TheHive requires some prerequisite applications be installed.  Apache Cassandra is an open source NoSQL database that is well known for its ability to handle large volumes of data without sacrificing performance. ElasticSearch is a search engine that will be used to manage data indices.
 <br />
 <br />
-This was an extremely long, difficult, and rewarding project.  Almost every step along the way required either extensive research and/or laborious troubleshooting, which was a phenomenal learning experience. This was a great test of several skills, including but not limited to: Linux/Windows administration, cloud/VM, networking, and implementation of cybersecurity concepts.
+This was an extremely long, difficult, and rewarding project.  Almost every step along the way required either extensive research and/or laborious troubleshooting, which was a phenomenal learning experience. This was a great test of several skills, including but not limited to: Linux/Windows administration, cloud infrastructure deployment/security, networking, and implementation of cybersecurity concepts.
 
 <h2>Environments and Tools Used </h2>
 
