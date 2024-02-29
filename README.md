@@ -22,139 +22,139 @@ This was an extremely long, difficult, and rewarding project.  Almost every step
 
 <p align="center">
 Logical Topology: <br/>
-<img src="https://i.imgur.com/71oiW22.png" height="80%" width="80%"/>
+<img src="https://i.imgur.com/OZr0WRC.png" height="80%" width="80%"/>
 <br />
 <br />
 Begin by provisioning the Wazuh and TheHive Ubuntu servers in the cloud. Once created, they are placed behind a firewall with a rule that only allows traffic from the on prem public IP address:  <br/>
-<img src="https://i.imgur.com/i9fTG5S.png" height="80%" width="80%"/>
+<img src="https://i.imgur.com/r0vZwUI.png" height="80%" width="80%"/>
 <br />  
 <br />
 SSH into the server and run 'apt-get update && apt-get upgrade' to update the package lists and then update them. Do this for TheHive server as well: <br/>
-<img src="https://i.imgur.com/MVhQe1H.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/mN4BK5x.png" height="80%" width="80%" />
 <br />
 <br />
 Use the Curl command found here: https://documentation.wazuh.com/current/installation-guide/wazuh-server/installation-assistant.html, to install the Wazuh manager:  <br/>
-<img src="https://i.imgur.com/ZBIKp8X.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/9nu8tjM.png" height="80%" width="80%" />
 <br />
 <br />
 After a few minutes the installation will be complete and login credentials will be generated.  Be sure to copy these:  <br/>
-<img src="https://i.imgur.com/496lM9u.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/JVgHUgn.png" height="80%" width="80%" />
 <br />
 <br />
 Open a browser and navigate to the public IP address of the Wazuh server.  In this case it would be https://68.183.147.154. Enter the credentials from the previous step to log in:  <br/>
-<img src="https://i.imgur.com/BkWWGmt.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/BDF2eOE.png" height="80%" width="80%" />
 <br />
 <br />
 Now that the Wazuh manager is successfully installed and deployed in the cloud, it's time to do the same for TheHive. To install TheHive, some dependencies and prerequisites must be installed first.  For the sake of brevity, these installations are not shown.  The prerequisites include Java, Cassandra, and ElasticSearch.  Finally TheHive can be successfully installed:  <br/>
-<img src="https://i.imgur.com/mLyQ3A7.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/fUn7jvi.png" height="80%" width="80%" />
 <br />
 <br />
 Now that Wazuh and TheHive are installed, it's time to edit some configuration files to make sure everything works properly, starting with Cassandra:  <br/>
-<img src="https://i.imgur.com/wYq2Z1v.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/swbk3v2.png" height="80%" width="80%" />
 <br />
 <br />
 In the /etc/cassandra/cassandra.yaml file, configure the cluster_name(optional), listen_address, rpc_address, and seed values.  The latter three should be configured with the public IP address of TheHive server:  <br />
-<img src="https://i.imgur.com/sncnpBF.png" height="80%" width="80%" />
-<img src="https://i.imgur.com/pbujnjL.png" height="80%" width="80%" />
-<img src="https://i.imgur.com/Qso5og9.png" height="80%" width="80%" />
-<img src="https://i.imgur.com/AfZujRB.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/QAu0IPS.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/FZ4h6OW.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/s3w2aJg.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/xvEUdWa.png" height="80%" width="80%" />
 <br />
 <br />
 Once the above configuration changes are complete, save the file. Next stop the cassandra service, remove old files, restart the service, and check the status to make sure it is 'active (running)':  <br />
-<img src="https://i.imgur.com/ZjiJcjL.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/fs2ItPw.png" height="80%" width="80%" />
 <br />
 <br />
 ElasticSearch needs to be configured next:  <br />
-<img src="https://i.imgur.com/yTtwnB6.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/mXjqJ5C.png" height="80%" width="80%" />
 <br />
 <br />
 In the /etc/elasticsearch/elasticsearch.yml file, uncomment/configure cluster.name, node.name, network.host, http.port, and cluster.initial_master_nodes. network.host should be the public IP address of TheHive server. http.port can be left with its default setting of 9200:  <br/>
-<img src="https://i.imgur.com/zm7Tafn.png" height="80%" width="80%" />
-<img src="https://i.imgur.com/ZiRXHIY.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/om3fvD2.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/lwMUybH.png" height="80%" width="80%" />
 <br />
 <br />
 Once the above configurations are complete, save the file.  Now the elasticsearch.service can be started/enabled. Check the status of the service to confirm it is 'active (running)':
-<img src="https://i.imgur.com/PLJ3Zjz.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/JcRVO0Y.png" height="80%" width="80%" />
 <br />
 <br />
 With the configuration of Cassandra and ElasticSearch complete, it's time to configure TheHive. To begin, TheHive user/group will need access to the /opt/thp filepath:  <br/>
-<img src="https://i.imgur.com/2UanbKd.png" height="80%" width="80%"/>
+<img src="https://i.imgur.com/UoIXqIB.png" height="80%" width="80%"/>
 <br />  
 <br />
 After that bit of maintenance, edit TheHive configuration file: <br/>
-<img src="https://i.imgur.com/7G7cAgt.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/6txIqSE.png" height="80%" width="80%" />
 <br />
 <br />
 In the /etc/thehive/application.conf file, under Database and index configuration, edit both hostnames to be the public IP address of TheHive server. The cluster-name should be the same as the one used in /etc/cassandra/cassandra.yaml. Note: (Not pictured here) further down in the file, application.baseUrl should also be changed to reflect TheHive server public IP:  <br/>
-<img src="https://i.imgur.com/casBj5B.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/eeR4vOS.png" height="80%" width="80%" />
 <br />
 <br />
 Save the file and start/enable thehive.service. As always, check the status to make sure it is 'active (running)':  <br/>
-<img src="https://i.imgur.com/DjeFhCN.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/67OiDj4.png" height="80%" width="80%" />
 <br />
 <br />
 Open a browser and navigate to the public IP address of TheHive server over port 9000.  In this case it would be http://174.138.74.192:9000. Log in using the default credentials: admin@thehive.local with password secret:  <br/>
-<img src="https://i.imgur.com/IBWkpp8.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/TXpVpbe.png" height="80%" width="80%" />
 <br />
 <br />
 With Wazuh and TheHive up an running in the cloud, it's time to move on to the second phase of the project.  Over on the Wazuh dashboard there are currently 0 agents.  That needs to change, so click the link to add a new agent. Select the radio button under the Windows header, enter the public IP address of the Wazuh manager, and optionally name the agent to generate the Powershell commands:  <br/>
-<img src="https://i.imgur.com/MjVixAs.png" height="80%" width="80%"/>
-<img src="https://i.imgur.com/P00Ghlc.png" height="80%" width="80%"/>
+<img src="https://i.imgur.com/BgnouAk.png" height="80%" width="80%"/>
+<img src="https://i.imgur.com/QrcCa5t.png" height="80%" width="80%"/>
 <br />  
 <br />
 Copy the aforementioned commands. In the Windows 10 Pro VM running in VirtualBox, open an admin session of Powershell.  Paste and run the commands: <br/>
-<img src="https://i.imgur.com/9dzbZ7I.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/8D8Fw0H.png" height="80%" width="80%" />
 <br />
 <br />
 Once complete, start the Wazuh service. Check the status to confirm that it is running:  <br/>
-<img src="https://i.imgur.com/83Wdnjw.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/bECKSuM.png" height="80%" width="80%" />
 <br />
 <br />
 Back on the Wazuh dashboard, the newly joined agent should be visible and showing as active:  <br/>
-<img src="https://i.imgur.com/huYfObQ.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/s8IwnM5.png" height="80%" width="80%" />
 <br />
 <br />
 Now that the Wazuh agent is installed, it requires some configuration. Open the ossec.conf file in an admin session of notepad:  <br/>
-<img src="https://i.imgur.com/Ul7xEG9.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/jMR50AQ.png" height="80%" width="80%" />
 <br />  
 <br />
 Sysmon is an incredibly useful service that monitors and logs activities such as process creation and network connections to the Windows event log. It was previously installed on this Windows 10 Pro VM. In order to ingest these logs on the Wazuh agent, edit the ossec.conf file under the Log analysis comment to include the location of these logs: <br/>
-<img src="https://i.imgur.com/1TegU4C.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/wJ8Sk3p.png" height="80%" width="80%" />
 <br />
 <br />
 Save the file and restart the Wazuh service:  <br/>
-<img src="https://i.imgur.com/EWy3OL0.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/vHPULj6.png" height="80%" width="80%" />
 <br />
 <br />
 Now that the appropriate logs are being ingested on the agent, it's time to generate some telemetry. The goal here will be to download the open source malware program, mimikatz, and have Wazuh alert on its process creation. Mimikatz is a tool often used by threat actors to extract credentials from Windows machines. This is obviously a major threat, and one that a security professional would need to be alerted to as quickly as possible. <br />
 <br />
 By default, Wazuh will only display logs that are triggered by a rule or alert. In order to make Wazuh log everything and index those logs, some configuration will need to be done on the Wazuh server. This will make it possible to search for certain events. Start by editing the /var/ossec/etc/ossec.conf file on the Wazuh server and change logall to yes:  <br/>
-<img src="https://i.imgur.com/aT85KYI.png" height="80%" width="80%" />
-<img src="https://i.imgur.com/QSz2FxI.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/NftTcf3.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/I1luel6.png" height="80%" width="80%" />
 <br />
 <br />
 Save the file and restart the wazuh-manager.service. Now Wazuh will log everything and save it to the /var/ossec/logs/archives directory:  <br/>
-<img src="https://i.imgur.com/49ktYUa.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/0MvmLG0.png" height="80%" width="80%" />
 <br />
 <br />
 To make Wazuh ingest these logs, edit the /etc/filebeat/filebeat.yml file and change archives: enabled: from false to true. Don't forget to restart the filebeat service:  <br/>
-<img src="https://i.imgur.com/Vcsw0nx.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/lbsBLAY.png" height="80%" width="80%" />
 <br />
 <br />
 With all of that complete, create a new Index Pattern in the Wazuh manager dashboard. This will make it possible to search all of the logs, even if they do not trigger an alert:  <br/>
-<img src="https://i.imgur.com/HFn8sSA.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/xYfKz8I.png" height="80%" width="80%" />
 <br />
 <br />
 Now that all of the logs are searchable, simulate an indicator of compromise, or IOC, by executing mimikatz:  <br/>
-<img src="https://i.imgur.com/iokyxuR.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/VHIodar.png" height="80%" width="80%" />
 <br />  
 <br />
 This will generate a Sysmon log with event ID 1 which indicates process creation. Because the Windows 10 Pro VM ossec.conf file was previously edited to send Sysmon logs over to Wazuh, the mimikatz process creation should be a searchable event in the newly created index: <br/>
-<img src="https://i.imgur.com/Z46uolP.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/A9BAFLW.png" height="80%" width="80%" />
 <br />
 <br />
 By clicking the arrow to expand the log with event ID 1, the data.win.eventdata.originalFileName field can be located. This field can be used to create a custom rule in Wazuh that will generate an alert when a certain criteria is met:  <br/>
-<img src="https://i.imgur.com/HzCZaBl.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/Rv3TB7f.png" height="80%" width="80%" />
 <br />
 <br />
 From the Wazuh dashboard home screen, navigate to Management > Rules:  <br/>
